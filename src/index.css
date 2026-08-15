@@ -1,0 +1,211 @@
+/* Google Fonts Imports */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Lora:ital,wght@0,400..700;1,400..700&family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400..900&family=Montserrat:wght@200..700&family=Quicksand:wght@300..700&family=Merriweather:ital,wght@0,300..900;1,300..900&family=Caveat:wght@400..700&family=Cabin:ital,wght@0,400..700;1,400..700&family=Inter:wght@300;400;600&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --font-classic-heading: "Playfair Display", serif;
+  --font-classic-body: "Lora", serif;
+  --font-bollywood-heading: "Cinzel", serif;
+  --font-bollywood-body: "Lora", serif;
+  --font-midnight-heading: "Montserrat", sans-serif;
+  --font-midnight-body: "Inter", sans-serif;
+  --font-soft-heading: "Quicksand", sans-serif;
+  --font-soft-body: "Quicksand", sans-serif;
+  --font-story-heading: "Playfair Display", serif;
+  --font-story-body: "Merriweather", serif;
+  --font-cafe-heading: "Caveat", cursive;
+  --font-cafe-body: "Cabin", sans-serif;
+  --font-monsoon-heading: "Lora", serif;
+  --font-monsoon-body: "Inter", sans-serif;
+}
+
+/* Custom Base / Lenis resets */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: var(--font-midnight-body), sans-serif;
+  background-color: #0b0c10;
+  color: #f3f4f6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Utility Classes & Animations */
+
+/* Film Grain Overlay */
+.film-grain {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  width: 200%;
+  height: 200%;
+  background: transparent url('data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjAwIDIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJub2lzZUZpbHRlciI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuNjUiIG51bU9jdGF2ZXM9IjMiIHN0aXRjaFRpbGVzPSJzdGl0Y2giLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjbm9pc2VGaWx0ZXIpIi8+PC9zdmc+') repeat;
+  opacity: 0.045;
+  pointer-events: none;
+  animation: grain 8s steps(10) infinite;
+  z-index: 10;
+}
+
+@keyframes grain {
+  0%, 100% { transform:translate(0, 0); }
+  10% { transform:translate(-5%, -10%); }
+  20% { transform:translate(-15%, 5%); }
+  30% { transform:translate(7%, -25%); }
+  40% { transform:translate(-5%, 25%); }
+  50% { transform:translate(-15%, 10%); }
+  60% { transform:translate(15%, 0%); }
+  70% { transform:translate(0%, 15%); }
+  80% { transform:translate(3%, 35%); }
+  90% { transform:translate(-10%, 10%); }
+}
+
+/* Rain Effect overlay */
+.rain-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.rain-drop {
+  position: absolute;
+  background: linear-gradient(transparent, rgba(174, 219, 237, 0.4));
+  width: 1px;
+  height: 50px;
+  opacity: 0.7;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-100px) rotate(15deg);
+  }
+  100% {
+    transform: translateY(100vh) rotate(15deg);
+  }
+}
+
+/* Star Twinkling */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+.twinkle-star {
+  animation: twinkle 3s infinite ease-in-out;
+}
+
+/* Steam waves for Café Love */
+.steam-container {
+  display: flex;
+  justify-content: space-around;
+  width: 60px;
+  height: 80px;
+  pointer-events: none;
+}
+
+.steam-line {
+  width: 3px;
+  height: 100%;
+  background: rgba(111, 78, 55, 0.2);
+  border-radius: 50%;
+  animation: steam 4s infinite ease-in-out;
+}
+
+.steam-line:nth-child(2) {
+  animation-delay: 1.3s;
+}
+
+.steam-line:nth-child(3) {
+  animation-delay: 2.5s;
+}
+
+@keyframes steam {
+  0% {
+    transform: translateY(15px) scaleX(1) scaleY(0.7);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(-10px) scaleX(1.5) scaleY(1.1);
+    opacity: 0.5;
+    filter: blur(2px);
+  }
+  100% {
+    transform: translateY(-35px) scaleX(2) scaleY(1.3);
+    opacity: 0;
+    filter: blur(4px);
+  }
+}
+
+/* Styled book crease for Our Story */
+.book-crease {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 30px;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.02) 20%, rgba(255,255,255,0.08) 50%, rgba(0,0,0,0.05) 80%, rgba(0,0,0,0.15) 100%);
+  pointer-events: none;
+  z-index: 20;
+}
+
+/* Scroll Indicators */
+.scroll-indicator-wheel {
+  animation: scroll-wheel 1.6s infinite ease-in-out;
+}
+
+@keyframes scroll-wheel {
+  0% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(6px); opacity: 0.3; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+/* Vinyl rotation */
+.rotate-slow {
+  animation: rotate-vinyl 8s linear infinite;
+}
+
+@keyframes rotate-vinyl {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Storybook paper texture */
+.paper-texture {
+  background-color: #fdfbf7;
+  background-image: 
+    radial-gradient(rgba(0, 0, 0, 0.015) 1px, transparent 0),
+    radial-gradient(rgba(0, 0, 0, 0.01) 2px, transparent 0);
+  background-size: 16px 16px, 32px 32px;
+  background-position: 0 0, 8px 8px;
+}
