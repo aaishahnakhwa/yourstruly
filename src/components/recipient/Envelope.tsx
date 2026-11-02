@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Heart } from 'lucide-react';
 import type { ThemeConfig } from '../../types';
 import { ThemeFlowers } from '../themes/FloralDecorations';
+import { Tilt3D } from '../shared/Tilt3D';
 
 interface EnvelopeProps {
   senderName: string;
@@ -42,15 +43,16 @@ export const Envelope: React.FC<EnvelopeProps> = ({
 
       {/* Envelope Container */}
       <div className="relative w-full max-w-[400px] aspect-[4/3] flex items-center justify-center">
-        {/* Envelope Body */}
-        <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ type: 'spring', damping: 20 }}
-          className={`w-full h-full relative shadow-2xl rounded-lg p-6 flex flex-col justify-between border ${
-            isDark ? 'border-slate-800' : 'border-rose-100'
-          } ${themeConfig.decorations.envelopeBg}`}
-        >
+        <Tilt3D className="w-full h-full">
+          {/* Envelope Body */}
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: 'spring', damping: 20 }}
+            className={`w-full h-full relative shadow-2xl rounded-lg p-6 flex flex-col justify-between border ${
+              isDark ? 'border-slate-800' : 'border-rose-100'
+            } ${themeConfig.decorations.envelopeBg}`}
+          >
           {/* Inner envelope pattern lining */}
           <div className={`absolute inset-2 rounded border border-white/5 opacity-20 pointer-events-none ${themeConfig.decorations.envelopePatternBg || 'bg-black/20'}`} />
 
@@ -92,7 +94,8 @@ export const Envelope: React.FC<EnvelopeProps> = ({
             </p>
           </div>
         </motion.div>
-      </div>
+      </Tilt3D>
+    </div>
 
       {/* Minimal Footer */}
       <motion.p

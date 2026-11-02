@@ -6,6 +6,7 @@ import { ThemeDecorator } from '../themes/ThemeDecorations';
 import { ProposalScene } from './ProposalScene';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Tilt3D } from '../shared/Tilt3D';
 
 interface RecipientStoryProps {
   card: ProposalCard;
@@ -23,12 +24,14 @@ export const RecipientStory: React.FC<RecipientStoryProps> = ({
   const memoriesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (isPreview) return;
+
     // Register ScrollTrigger
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
       // Configuration for the scrolling container
-      const scroller = isPreview ? '.preview-scroller-container' : window;
+      const scroller = window;
 
       // 1. Fade-in animations for the intro section elements
       gsap.fromTo(
@@ -170,44 +173,46 @@ export const RecipientStory: React.FC<RecipientStoryProps> = ({
               >
                 {/* Photo or illustrated card element */}
                 <div className="w-full md:w-1/2 flex justify-center">
-                  {hasPhoto ? (
-                    // Polaroid Photo Frame
-                    <motion.div
-                      whileHover={{ scale: 1.02, rotate: index % 2 === 0 ? -1 : 1 }}
-                      className="bg-white p-4 pb-8 shadow-2xl border border-slate-100 rounded-sm transform max-w-[340px] w-full"
-                      style={{
-                        transform: `rotate(${index % 2 === 0 ? -2 : 2}deg)`,
-                      }}
-                    >
-                      <div className="w-full aspect-square overflow-hidden bg-slate-50 relative border border-slate-100">
-                        <img
-                          src={memory.photoUrl}
-                          alt={memory.title}
-                          className="w-full h-full object-cover select-none"
-                        />
-                      </div>
-                      <p className="font-cafe-heading text-slate-800 text-lg md:text-xl text-center mt-4">
-                        {memory.title || 'A sweet moment'}
-                      </p>
-                    </motion.div>
-                  ) : (
-                    // Scrap Paper/Diary Card Frame
-                    <div
-                      className={`p-8 w-full max-w-[340px] aspect-[4/3] flex flex-col justify-center items-center text-center paper-texture shadow-xl rounded-sm border-l-4 transform border-[#8b1e3f]/25`}
-                      style={{
-                        transform: `rotate(${index % 2 === 0 ? 1 : -1}deg)`,
-                      }}
-                    >
-                      <h4
-                        className={`text-lg md:text-xl font-bold mb-3 ${colors.headingTextClass} ${themeConfig.fontHeading}`}
+                  <Tilt3D className="w-full max-w-[340px] flex justify-center">
+                    {hasPhoto ? (
+                      // Polaroid Photo Frame
+                      <motion.div
+                        whileHover={{ scale: 1.02, rotate: index % 2 === 0 ? -1 : 1 }}
+                        className="bg-white p-4 pb-8 shadow-2xl border border-slate-100 rounded-sm transform max-w-[340px] w-full"
+                        style={{
+                          transform: `rotate(${index % 2 === 0 ? -2 : 2}deg)`,
+                        }}
                       >
-                        {memory.title || 'A Memory'}
-                      </h4>
-                      <p className={`text-xs md:text-sm italic text-slate-600 ${themeConfig.fontBody}`}>
-                        "Remember when..."
-                      </p>
-                    </div>
-                  )}
+                        <div className="w-full aspect-square overflow-hidden bg-slate-50 relative border border-slate-100">
+                          <img
+                            src={memory.photoUrl}
+                            alt={memory.title}
+                            className="w-full h-full object-cover select-none"
+                          />
+                        </div>
+                        <p className="font-cafe-heading text-slate-800 text-lg md:text-xl text-center mt-4">
+                          {memory.title || 'A sweet moment'}
+                        </p>
+                      </motion.div>
+                    ) : (
+                      // Scrap Paper/Diary Card Frame
+                      <div
+                        className={`p-8 w-full max-w-[340px] aspect-[4/3] flex flex-col justify-center items-center text-center paper-texture shadow-xl rounded-sm border-l-4 transform border-[#8b1e3f]/25`}
+                        style={{
+                          transform: `rotate(${index % 2 === 0 ? 1 : -1}deg)`,
+                        }}
+                      >
+                        <h4
+                          className={`text-lg md:text-xl font-bold mb-3 ${colors.headingTextClass} ${themeConfig.fontHeading}`}
+                        >
+                          {memory.title || 'A Memory'}
+                        </h4>
+                        <p className={`text-xs md:text-sm italic text-slate-600 ${themeConfig.fontBody}`}>
+                          "Remember when..."
+                        </p>
+                      </div>
+                    )}
+                  </Tilt3D>
                 </div>
 
                 {/* Narrative text card element */}
